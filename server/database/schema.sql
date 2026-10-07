@@ -1,6 +1,23 @@
-CREATE TABLE IF NOT EXISTS admins(id SERIAL PRIMARY KEY,username TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,failed_attempts INT NOT NULL DEFAULT 0,locked_until TIMESTAMPTZ,created_at TIMESTAMPTZ NOT NULL DEFAULT now());
-CREATE SEQUENCE IF NOT EXISTS request_seq;
-CREATE TABLE IF NOT EXISTS project_requests(id SERIAL PRIMARY KEY,request_code TEXT UNIQUE NOT NULL,name TEXT NOT NULL,discord_username TEXT,instagram_username TEXT,email TEXT NOT NULL,project_type TEXT NOT NULL,description TEXT NOT NULL,budget TEXT,deadline TEXT,additional_information TEXT,status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN('pending','in_progress','completed','cancelled')),created_at TIMESTAMPTZ NOT NULL DEFAULT now(),updated_at TIMESTAMPTZ NOT NULL DEFAULT now());
-CREATE TABLE IF NOT EXISTS projects(id SERIAL PRIMARY KEY,name TEXT NOT NULL,description TEXT NOT NULL,category TEXT NOT NULL,image_url TEXT,technologies TEXT[] NOT NULL DEFAULT '{}',project_url TEXT,created_at TIMESTAMPTZ NOT NULL DEFAULT now(),updated_at TIMESTAMPTZ NOT NULL DEFAULT now());
-CREATE TABLE IF NOT EXISTS session(sid VARCHAR PRIMARY KEY,sess JSON NOT NULL,expire TIMESTAMP(6) NOT NULL);
-CREATE INDEX IF NOT EXISTS idx_session_expire ON session(expire);
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT DEFAULT 'admin',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT,
+    client_name TEXT,
+    status TEXT DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS activity_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    action TEXT NOT NULL,
+    details TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
