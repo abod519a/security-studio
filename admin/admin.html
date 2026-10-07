@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Security Studio — Admin</title><link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/admin/admin.css"></head>
+<body>
+<div id="login" class="loginbox" hidden><form id="lform" class="panel"><img src="/assets/logo.png" alt="" width="64" height="64"><h1>Security Studio</h1>
+<label>Username<input name="username" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+<button class="btn primary" type="submit">Sign in</button></form></div>
+<div id="app" class="app" hidden>
+<aside class="side"><div class="logo"><img src="/assets/logo.png" alt="" width="30" height="30">Security Studio</div>
+<nav><button data-v="dash" class="on">Dashboard</button><button data-v="reqs">Requests</button><button data-v="projs">Projects</button><button data-v="set">Settings</button><button id="logout">Logout</button></nav></aside>
+<main>
+<section id="v-dash"><h2>Dashboard</h2><div class="stats" id="stats"></div></section>
+<section id="v-reqs" hidden><h2>Requests</h2>
+<div class="bar"><input id="q" type="search" placeholder="Search name, email or ID" aria-label="Search requests"><select id="sf" aria-label="Filter by status"><option value="">All statuses</option><option value="pending">Pending</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+<div class="scroll"><table><thead><tr><th>Request</th><th>Client</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="bar pager"><button class="btn" id="prev">Previous</button><span id="pinfo"></span><button class="btn" id="next">Next</button></div></section>
+<section id="v-projs" hidden><h2>Projects</h2>
+<form id="pform" class="panel" novalidate><input type="hidden" name="id">
+<label>Project name<input name="name" required maxlength="120"></label><label>Description<textarea name="description" rows="3" required maxlength="2000"></textarea></label>
+<div class="two"><label>Category<input name="category" required maxlength="60"></label><label>Technologies (comma separated)<input name="technologies"></label></div>
+<div class="two"><label>Image URL<input name="image_url" type="url" placeholder="https://"></label><label>Project URL<input name="project_url" type="url" placeholder="https://"></label></div>
+<div class="bar"><button class="btn primary" type="submit" id="psave">Add project</button><button class="btn" type="button" id="pcancel" hidden>Cancel edit</button></div></form>
+<div class="scroll"><table><thead><tr><th>Name</th><th>Category</th><th>Technologies</th><th>Actions</th></tr></thead><tbody id="prows"></tbody></table></div></section>
+<section id="v-set" hidden><h2>Settings</h2><div class="panel"><p>Signed in as <strong id="who"></strong>.</p><p class="muted">Sessions expire after 2 hours of inactivity. To change the admin password, update ADMIN_PASSWORD on the server and run npm run setup.</p></div></section>
+</main></div>
+<div class="modal" id="rmodal" hidden><div class="panel mbox" role="dialog" aria-modal="true" aria-labelledby="rtitle"><button class="x" id="rclose" aria-label="Close">×</button><h2 id="rtitle"></h2><dl id="rdetail"></dl><label>Status<select id="rstatus"><option value="pending">Pending</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label></div></div>
+<div class="modal" id="cmodal" hidden><div class="panel mbox" role="alertdialog" aria-modal="true" aria-labelledby="ctext"><p id="ctext"></p><div class="bar"><button class="btn danger" id="cyes">Delete</button><button class="btn" id="cno">Cancel</button></div></div></div>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<script src="/admin/admin.js"></script></body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security Studio — Turning Ideas Into Code</title>
+<meta name="description" content="Security Studio is a full-stack development studio building websites, Discord bots, systems, secure architecture and Minecraft servers.">
+<link rel="canonical" href="/"><link rel="icon" type="image/png" href="/assets/favicon.png">
+<meta property="og:title" content="Security Studio — Turning Ideas Into Code"><meta property="og:description" content="Websites, bots, systems, cybersecurity and Minecraft servers."><meta property="og:type" content="website"><meta property="og:image" content="/assets/logo.png">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Security Studio — Turning Ideas Into Code">
+<link rel="stylesheet" href="/style.css"></head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap navin">
+<a class="brand" href="#home"><img src="/assets/logo.png" alt="" width="34" height="34"><span>Security Studio</span></a>
+<button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+<nav id="menu" aria-label="Main"><a href="#home">Home</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#about">About</a><a href="#" data-open-request>Request Project</a><a href="#contact">Contact</a></nav>
+</div></header>
+<main id="main">
+<section id="home" class="hero"><div class="wrap herogrid">
+<div><h1>Security Studio</h1><p class="tag">Turning Ideas Into Code.</p>
+<p class="sub">Full-Stack Developer • Websites • Bots • Systems • Minecraft Servers</p>
+<div class="btns"><button class="btn primary" data-open-request>Request a Project</button><a class="btn ghost" href="#services">Explore Services</a></div></div>
+<div class="crystal"><img src="/assets/logo.png" alt="Security Studio crystal logo" width="420" height="420"></div>
+</div></section>
+<section id="services" class="sec"><div class="wrap"><h2>Services</h2><p class="lead">Everything from the first line of code to the live server.</p>
+<div class="cards" id="cards"></div></div></section>
+<section id="projects" class="sec"><div class="wrap"><h2>Projects</h2><div class="filters" id="filters" role="group" aria-label="Filter projects"></div><div class="pgrid" id="pgrid" aria-live="polite"><p class="muted">Loading projects…</p></div></div></section>
+<section id="about" class="sec"><div class="wrap narrow"><h2>About Security Studio</h2>
+<p class="lead">Security Studio is a modern development studio focused on building websites, bots, systems, Minecraft infrastructure and custom digital solutions.</p>
+<ol class="flow"><li>Idea</li><li>Code</li><li>System</li><li>Result</li></ol></div></section>
+<section id="contact" class="sec"><div class="wrap narrow glass center"><h2>Have an idea? Let's build it.</h2><p class="lead">Choose how you'd like to contact Security Studio.</p>
+<div class="btns center-b" id="contactbtns"></div></div></section>
+</main>
+<footer class="foot"><div class="wrap footin"><div><strong>🔮 Security Studio</strong><p class="muted">Turning Ideas Into Code.</p></div>
+<nav aria-label="Footer"><a href="https://instagram.com/mylezix/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://wa.me/962790931373" target="_blank" rel="noopener noreferrer">WhatsApp</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#" data-open-request>Request a Project</a></nav></div>
+<p class="wrap muted copy">© 2026 Security Studio. All rights reserved.</p></footer>
+<a class="wa" href="https://wa.me/962790931373" target="_blank" rel="noopener noreferrer" aria-label="Contact Security Studio on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.200zm4.500-6.100c-.2-.1-1.500-.7-1.700-.8s-.4-.1-.6.100-.6.800-.8 1-.3.200-.6.100a6.700 6.700 0 0 1-3.300-2.900c-.2-.4.200-.4.700-1.300.1-.2 0-.3 0-.4l-.8-1.800c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.300 3 3 0 0 0-.9 2.200 5.300 5.300 0 0 0 1.100 2.800 12 12 0 0 0 4.600 4c1.700.7 2.400.8 3.200.7a2.700 2.700 0 0 0 1.800-1.300 2.200 2.200 0 0 0 .2-1.300c-.1-.1-.3-.2-.5-.3z"/></svg></a>
+<div class="modal" id="modal" hidden><div class="mbox glass" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+<button class="close" id="mclose" aria-label="Close">×</button>
+<div id="mform"><h2 id="mtitle">Request a project</h2>
+<form id="rform" novalidate>
+<label>Name *<input name="name" required maxlength="100" autocomplete="name"></label>
+<label>Email *<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+<div class="two"><label>Discord username<input name="discord_username" maxlength="60"></label><label>Instagram username<input name="instagram_username" maxlength="60"></label></div>
+<label>Project type *<select name="project_type" required><option value="">Select…</option><option>Website</option><option>Discord Bot</option><option>Minecraft Server</option><option>Minecraft Plugin</option><option>Custom System</option><option>Full-Stack Application</option><option>Cybersecurity</option><option>Other</option></select></label>
+<label>Project description *<textarea name="description" rows="4" required minlength="10" maxlength="3000"></textarea></label>
+<div class="two"><label>Budget<input name="budget" maxlength="60"></label><label>Deadline<input name="deadline" maxlength="60"></label></div>
+<label>Additional information<textarea name="additional_information" rows="2" maxlength="2000"></textarea></label>
+<button class="btn primary full" type="submit" id="rsubmit">Send request</button></form></div>
+<div id="mdone" hidden class="center"><h2>Your project request has been submitted successfully!</h2><p class="lead">Request ID: <strong id="rcode"></strong></p><div class="btns center-b" id="donebtns"></div></div>
+</div></div>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<script src="/script.js"></script></body></html>

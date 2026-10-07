@@ -1,0 +1,21 @@
+require('dotenv').config();
+const path=require('path'),crypto=require('crypto'),express=require('express'),helmet=require('helmet'),session=require('express-session'),PgStore=require('connect-pg-simple')(session),rateLimit=require('express-rate-limit'),pool=require('./database/db'),{csrf}=require('./middleware/auth');
+const prod=process.env.NODE_ENV==='production';
+if(!process.env.SESSION_SECRET||!process.env.DATABASE_URL){console.error('DATABASE_URL and SESSION_SECRET are required.');process.exit(1)}
+const app=express();
+app.set('trust proxy',1);app.disable('x-powered-by');
+app.use(helmet({contentSecurityPolicy:{directives:{defaultSrc:["'self'"],scriptSrc:["'self'"],styleSrc:["'self'"],imgSrc:["'self'","data:","https:"],connectSrc:["'self'"],objectSrc:["'none'"],frameAncestors:["'none'"],baseUri:["'self'"],formAction:["'self'"]}}}));
+app.use(express.json({limit:'20kb'}));
+app.use(session({name:'ss.sid',store:new PgStore({pool,tableName:'session'}),secret:process.env.SESSION_SECRET,resave:false,saveUninitialized:false,rolling:true,cookie:{httpOnly:true,secure:prod,sameSite:'strict',maxAge:2*60*60*1000}}));
+app.use('/api',rateLimit({windowMs:60*1000,max:120,standardHeaders:true,legacyHeaders:false,message:{error:'Too many requests. Slow down.'}}));
+app.get('/api/csrf',(req,res)=>{req.session.csrf=req.session.csrf||crypto.randomBytes(32).toString('hex');res.json({csrf:req.session.csrf})});
+const reqLimiter=rateLimit({windowMs:60*60*1000,max:5,message:{error:'Too many requests. Try again later.'}});
+app.use('/api/requests',(req,res,next)=>req.method==='POST'?reqLimiter(req,res,next):next());
+app.use('/api',csrf);
+app.use('/api/admin',require('./routes/admin'));
+app.use('/api',require('./routes/public'));
+app.use('/api',(req,res)=>res.status(404).json({error:'Not found.'}));
+app.use('/admin',express.static(path.join(__dirname,'../admin'),{index:'admin.html'}));
+app.use(express.static(path.join(__dirname,'../public'),{maxAge:prod?'1d':0}));
+app.use((err,req,res,next)=>{console.error(prod?err.message:err);res.status(err.status||500).json({error:'Something went wrong. Please try again.'})});
+app.listen(process.env.PORT||3000,()=>console.log('Security Studio running'));
